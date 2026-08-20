@@ -10,33 +10,123 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as UserRouteRouteImport } from './routes/user/route'
+import { Route as AdminForgotPasswordRouteImport } from './routes/admin/forgot-password'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as UserForgotPasswordRouteImport } from './routes/user/forgot-password'
+import { Route as UserLoginRouteImport } from './routes/user/login'
+import { Route as UserRegistrationRouteImport } from './routes/user/registration'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserRouteRoute = UserRouteRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminForgotPasswordRoute = AdminForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const UserForgotPasswordRoute = UserForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserLoginRoute = UserLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserRegistrationRoute = UserRegistrationRouteImport.update({
+  id: '/registration',
+  path: '/registration',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/user': typeof UserRouteRouteWithChildren
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/user/forgot-password': typeof UserForgotPasswordRoute
+  '/user/login': typeof UserLoginRoute
+  '/user/registration': typeof UserRegistrationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/user': typeof UserRouteRouteWithChildren
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/user/forgot-password': typeof UserForgotPasswordRoute
+  '/user/login': typeof UserLoginRoute
+  '/user/registration': typeof UserRegistrationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/user': typeof UserRouteRouteWithChildren
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/user/forgot-password': typeof UserForgotPasswordRoute
+  '/user/login': typeof UserLoginRoute
+  '/user/registration': typeof UserRegistrationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/user'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/user/forgot-password'
+    | '/user/login'
+    | '/user/registration'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/user'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/user/forgot-password'
+    | '/user/login'
+    | '/user/registration'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/user'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/user/forgot-password'
+    | '/user/login'
+    | '/user/registration'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  UserRouteRoute: typeof UserRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +138,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/forgot-password': {
+      id: '/admin/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/admin/forgot-password'
+      preLoaderRoute: typeof AdminForgotPasswordRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/user/forgot-password': {
+      id: '/user/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/user/forgot-password'
+      preLoaderRoute: typeof UserForgotPasswordRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/user/login': {
+      id: '/user/login'
+      path: '/login'
+      fullPath: '/user/login'
+      preLoaderRoute: typeof UserLoginRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/user/registration': {
+      id: '/user/registration'
+      path: '/registration'
+      fullPath: '/user/registration'
+      preLoaderRoute: typeof UserRegistrationRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
   }
 }
 
+interface AdminRouteRouteChildren {
+  AdminForgotPasswordRoute: typeof AdminForgotPasswordRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminForgotPasswordRoute: AdminForgotPasswordRoute,
+  AdminLoginRoute: AdminLoginRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
+interface UserRouteRouteChildren {
+  UserForgotPasswordRoute: typeof UserForgotPasswordRoute
+  UserLoginRoute: typeof UserLoginRoute
+  UserRegistrationRoute: typeof UserRegistrationRoute
+}
+
+const UserRouteRouteChildren: UserRouteRouteChildren = {
+  UserForgotPasswordRoute: UserForgotPasswordRoute,
+  UserLoginRoute: UserLoginRoute,
+  UserRegistrationRoute: UserRegistrationRoute,
+}
+
+const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
+  UserRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
+  UserRouteRoute: UserRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
